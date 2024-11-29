@@ -1,23 +1,25 @@
+import 'package:favorite_places/models/place.dart';
 import 'package:flutter/material.dart';
 
 class PlaceDetails extends StatelessWidget {
-  const PlaceDetails({super.key, required this.name});
-  final String name;
+  const PlaceDetails({super.key, required this.place});
+  final Place place;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(name),
+        title: Text(place.name),
       ),
-      body: Center(
-        child: Text(
-          name,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
+      body: Stack(
+        children: [
+          Image.file(
+            place.image,
+            fit: BoxFit.cover,
+            width: double.infinity,
+            height: double.infinity,
           ),
-        ),
+        ],
       ),
     );
   }

@@ -1,11 +1,22 @@
+import 'dart:io';
+
 import 'package:favorite_places/models/place.dart';
 import 'package:favorite_places/providers/places_provider.dart';
+import 'package:favorite_places/widgets/image_input.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AddPlaceScreen extends StatelessWidget {
-  AddPlaceScreen({super.key});
+class AddPlaceScreen extends StatefulWidget {
+  const AddPlaceScreen({super.key});
+
+  @override
+  State<AddPlaceScreen> createState() => _AddPlaceScreenState();
+}
+
+class _AddPlaceScreenState extends State<AddPlaceScreen> {
   final _nameController = TextEditingController();
+
+  File? _selectedImage;
 
   void _submitPlace(BuildContext context) {
     final enteredName = _nameController.text.trim();
@@ -17,8 +28,15 @@ class AddPlaceScreen extends StatelessWidget {
       return;
     }
 
+    if (_selectedImage == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select an image.')),
+      );
+      return;
+    }
+
     final container = ProviderScope.containerOf(context);
-    final newPlace = Place(name: enteredName);
+    final newPlace = Place(name: enteredName, image: _selectedImage!);
 
     container.read(placesProvider.notifier).addPlace(newPlace);
 
@@ -49,6 +67,13 @@ class AddPlaceScreen extends StatelessWidget {
                     style: TextStyle(
                         color: Theme.of(context).colorScheme.onSurface),
                   ),
+                  const SizedBox(height: 10),
+                  ImageInput(
+                    onPickImage: (image) {
+                      _selectedImage = image;
+                    },
+                  ),
+                  const SizedBox(height: 16),
                   ElevatedButton.icon(
                     onPressed: () {
                       _submitPlace(context);

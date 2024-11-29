@@ -21,19 +21,26 @@ class YourPlacesScreen extends ConsumerWidget {
               ),
             ),
           )
-        : ListView.builder(
-            itemCount: yourPlaces.length,
-            itemBuilder: (context, index) => ListTile(
-              title: Text(yourPlaces[index].name),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => PlaceDetails(
-                      name: yourPlaces[index].name,
+        : Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView.builder(
+              itemCount: yourPlaces.length,
+              itemBuilder: (context, index) => ListTile(
+                leading: CircleAvatar(
+                  radius: 26,
+                  backgroundImage: FileImage(yourPlaces[index].image),
+                ),
+                title: Text(yourPlaces[index].name),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => PlaceDetails(
+                        place: yourPlaces[index],
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           );
 
