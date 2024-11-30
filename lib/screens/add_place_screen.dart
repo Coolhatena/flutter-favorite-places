@@ -18,6 +18,7 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
   final _nameController = TextEditingController();
 
   File? _selectedImage;
+  PlaceLocation? _selectedLocation;
 
   void _submitPlace(BuildContext context) {
     final enteredName = _nameController.text.trim();
@@ -36,8 +37,19 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
       return;
     }
 
+    if (_selectedLocation == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a location.')),
+      );
+      return;
+    }
+
     final container = ProviderScope.containerOf(context);
-    final newPlace = Place(name: enteredName, image: _selectedImage!);
+    final newPlace = Place(
+      name: enteredName,
+      image: _selectedImage!,
+      location: _selectedLocation!,
+    );
 
     container.read(placesProvider.notifier).addPlace(newPlace);
 
@@ -75,7 +87,11 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
                     },
                   ),
                   const SizedBox(height: 16),
-                  LocationInput(),
+                  LocationInput(
+                    onSelectLocation: (location) {
+                      _selectedLocation = location;
+                    },
+                  ),
                   const SizedBox(height: 16),
                   ElevatedButton.icon(
                     onPressed: () {
