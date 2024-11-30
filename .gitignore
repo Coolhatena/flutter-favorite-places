@@ -43,4 +43,4 @@ app.*.map.json
 /android/app/release
 
 # Custom ignores
-/lib/env.json
+/assets/env.json
