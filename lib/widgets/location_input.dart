@@ -90,10 +90,9 @@ class _LocationInputState extends State<LocationInput> {
     Widget previewContent = Text(
       "No Location Chosen",
       textAlign: TextAlign.center,
-      style: Theme.of(context)
-          .textTheme
-          .bodyLarge!
-          .copyWith(color: Theme.of(context).colorScheme.onSurface),
+      style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
     );
 
     if (_pickedLocation != null) {
