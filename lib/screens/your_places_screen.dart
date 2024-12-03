@@ -30,7 +30,18 @@ class YourPlacesScreen extends ConsumerWidget {
                   radius: 26,
                   backgroundImage: FileImage(yourPlaces[index].image),
                 ),
-                title: Text(yourPlaces[index].name),
+                title: Text(
+                  yourPlaces[index].name,
+                  style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                ),
+                subtitle: Text(
+                  yourPlaces[index].location.address,
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
+                ),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
