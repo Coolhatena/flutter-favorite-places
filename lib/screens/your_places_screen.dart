@@ -58,7 +58,7 @@ class YourPlacesScreen extends ConsumerWidget {
     void addPlace() {
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (context) => AddPlaceScreen(),
+          builder: (context) => const AddPlaceScreen(),
         ),
       );
     }
