@@ -45,13 +45,16 @@ class _AddPlaceScreenState extends State<AddPlaceScreen> {
     }
 
     final container = ProviderScope.containerOf(context);
-    final newPlace = Place(
-      name: enteredName,
-      image: _selectedImage!,
-      location: _selectedLocation!,
-    );
+    // final newPlace = Place(
+    //   name: enteredName,
+    //   image: _selectedImage!,
+    //   location: _selectedLocation!,
+    // );
 
-    container.read(placesProvider.notifier).addPlace(newPlace);
+    container
+        .read(placesProvider.notifier)
+        .addPlace(enteredName, _selectedImage!, _selectedLocation!);
+    // container.read(placesProvider.notifier).addPlace(newPlace);
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('Place added!')),
